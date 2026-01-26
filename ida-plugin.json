@@ -1,0 +1,32 @@
+{
+  "IDAMetadataDescriptorVersion": 1,
+  "plugin": {
+    "name": "WPP-Remover",
+    "version": "1.0.0",
+    "description": "Remove Windows Performance Profiling (WPP) calls from Hex-Rays decompiler output for cleaner pseudocode analysis",
+    "entryPoint": "wpp_remover.py",
+    "license": "GPL-3.0",
+    "urls": {
+      "repository": "https://github.com/L4ys/IDA-WPP-Remover"
+    },
+    "authors": [
+      {
+        "name": "Lays",
+        "email": "l4ys.tw@gmail.com"
+      }
+    ],
+    "platforms": [
+      "windows-x86_64",
+      "linux-x86_64",
+      "macos-x86_64",
+      "macos-aarch64"
+    ],
+    "categories": [
+      "decompilation",
+      "vulnerability-research-and-exploit-development"
+    ],
+    "keywords": [
+      "WPP"
+    ]
+  }
+}
