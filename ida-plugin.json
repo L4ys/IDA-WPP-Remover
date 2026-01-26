@@ -1,7 +1,7 @@
 {
   "IDAMetadataDescriptorVersion": 1,
   "plugin": {
-    "name": "WPP-Remover",
+    "name": "wpp-remover",
     "version": "1.0.0",
     "description": "Remove Windows Performance Profiling (WPP) calls from Hex-Rays decompiler output for cleaner pseudocode analysis",
     "entryPoint": "wpp_remover.py",
@@ -26,7 +26,8 @@
       "vulnerability-research-and-exploit-development"
     ],
     "keywords": [
-      "WPP"
+      "windows",
+      "wpp"
     ]
   }
 }
