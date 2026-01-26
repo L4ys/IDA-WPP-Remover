@@ -28,8 +28,8 @@ class HexraysPopupHook(ida_kernwin.UI_Hooks):
     def __init__(self, plugin):
         ida_kernwin.UI_Hooks.__init__(self)
         self.plugin = plugin
-        
-    def populating_widget_popup(self, widget, popup, ctx):
+
+    def finish_populating_widget_popup(self, widget, popup, ctx):
         if ida_kernwin.get_widget_type(widget) == ida_kernwin.BWN_PSEUDOCODE:
             ida_kernwin.attach_action_to_popup(widget, popup, "wpp_remover:toggle", "WPP Remover")
 
@@ -58,17 +58,17 @@ class wpp_remover_plugin_t(ida_idaapi.plugin_t):
             -1
         )
         ida_kernwin.register_action(action_desc)
-        
+
         # Setup the UI hook
         self.ui_hook = HexraysPopupHook(self)
         self.ui_hook.hook()
-    
+
     def toggle_handler(self):
         class ToggleActionHandler(ida_kernwin.action_handler_t):
             def __init__(self, plugin):
                 ida_kernwin.action_handler_t.__init__(self)
                 self.plugin = plugin
-                
+
             def activate(self, ctx):
                 if self.plugin.is_enabled:
                     self.plugin.disable_optimizer()
@@ -81,35 +81,35 @@ class wpp_remover_plugin_t(ida_idaapi.plugin_t):
                     if vu:
                         vu.refresh_view(True)
                 return 1
-                
+
             def update(self, ctx):
                 # Always enable this menu item
                 return ida_kernwin.AST_ENABLE_ALWAYS
-        
+
         return ToggleActionHandler(self)
-    
+
     def enable_optimizer(self):
         if not self.is_enabled:
             self.optimizer.install()
             self.is_enabled = True
             print("WPP Remover: Enabled")
-    
+
     def disable_optimizer(self):
         if self.is_enabled:
             self.optimizer.remove()
             self.is_enabled = False
             print("WPP Remover: Disabled")
-    
+
     def is_windows_file(self):
         # Check if current file is a Windows PE file
         return ida_ida.inf_get_filetype() == ida_ida.f_PE
-    
+
     def init(self):
         # First, check if the file is a Windows PE file
         if not self.is_windows_file():
             return ida_idaapi.PLUGIN_SKIP
-        
-        if ida_hexrays.init_hexrays_plugin():           
+
+        if ida_hexrays.init_hexrays_plugin():
             self.optimizer = wpp_remover_optimizer_t()
             self.register_context_menu()
             print("WPP Remover plugin initialized")
@@ -118,7 +118,7 @@ class wpp_remover_plugin_t(ida_idaapi.plugin_t):
 
             return ida_idaapi.PLUGIN_KEEP
         return ida_idaapi.PLUGIN_SKIP
-        
+
     def term(self):
         # Unregister the action and unhook
         if self.ui_hook:
