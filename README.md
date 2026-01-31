@@ -18,7 +18,14 @@ hcli plugin install wpp-remover
 ```
 
 ### Method 2: Manual Installation
-Copy `wpp_remover.py` to your IDA plugins directory (`%IDADIR%\plugins` or `%APPDATA%\Hex-Rays\IDA Pro\plugins`)
+
+1. Download or clone this repository.
+2. Copy `wpp_remover.py` into your IDA plugins directory:
+   - **Windows:**
+     `%APPDATA%\Hex-Rays\IDA Pro\plugins\`
+   - **macOS/Linux:**
+     `~/.idapro/plugins/`
+3. Restart IDA.
 
 ## Usage
 
